@@ -49,36 +49,45 @@ print("Assembling...")
 for i in range(len(content)):
     line = content[i].replace(",", "")
     line = line.split(" ")
-    command = line[0].upper()
-    opcode1 = line[1].strip()
-    opcode2 = line[2].strip()
-    if command == "MOV":
-        if not opcode2.isdigit():
-            print(movRegVars[opcode1], end="")
-            print(var[opcode2], end="")
+
+    for i in range(len(line)):
+        line[i] = line[i].strip()
+
+    line[0] = line[0].upper()
+
+    if line[0] == "MOV":
+        if not line[2].isdigit():
+            print(movRegVars[line[1]], end="")
+            print(var[line[2]], end="")
         else:
-            print(var[opcode1] << 3 + 3)
-            print(int(opcode2))
-    elif command == "ADD":
-        if not opcode1.isdigit():
+            print((var[line[1]] << 3) + 3)
+            print(int(line[2]))
+    elif line[0] == "ADD":
+        if not line[1].isdigit():
             print("8", end="")
-            print(var[opcode1])
+            print(var[line[1]])
         else:
             print("80")
-            print(opcode1)
-    elif command == "ADC":
-        if not opcode1.isdigit():
+            print(line[1])
+    elif line[0] == "ADC":
+        if not line[1].isdigit():
             print("8", end="")
-            print(var[opcode1]+8)
+            print(var[line[1]]+8)
         else:
             print("88")
-            print(opcode1)
-    elif command == "SUB":
-        if not opcode1.isdigit():
+            print(line[1])
+    elif line[0] == "SUB":
+        if not line[1].isdigit():
             print("9", end="")
-            print(var[opcode1])
+            print(var[line[1]])
         else:
-            print("88")
-            print(opcode1)
-    elif command == "SBC":
-        
+            print("90")
+            print(line[1])
+    elif line[0] == "SBC":
+        if not line[1].isdigit():
+            print("9", end="")
+            print(var[line[1]]+8)
+        else:
+            print("98")
+            print(line[1])
+
