@@ -1,0 +1,245 @@
+MINI INSTRUCTIONS 8-BIT CPU
+
+0x0000000001 NOP
+0x0000000002 INSTRld    	loads a instruction into the buffer
+0x0000000004 MINIclr    	clears the mini instruction counter thing
+0x0000000008 REGadr   	loads the adr for register addressing
+0X0000000010 CLK		clocks the PC
+0x0000000020 REG outEn	enables selected reg on data bus to output
+0x0000000040 REG inEn	enables selected reg on data bus to input
+0x0000000080 S1		select decoder in ALU
+0x0000000100 S2		select decoder in ALU
+0x0000000200 S3		select decoder in ALU
+0x0000000400 ADR BYTE1	loads ROM ADR byte 1 for jmp
+0x0000000800 ADR BYTE2	loads ROM ADR byte 2 for jmp
+0x0000001000 ~PUSH/POP AU 	selcts Push or Pop for upper 8 bits	
+0x0000002000 CLKstack AU   	clocks data into upper stack Push or Pop *Remember needs to select Push or Pop first*
+0x0000004000 ~PUSH/POP AD  	selcts Push or Pop for lower 8 bits	
+0x0000008000 CLKstack AD   	clocks data into lower stack Push or Pop *Remember needs to select Push or Pop first*
+0x0000010000 ~ROM/RAM	if 0 Selects ROM for outputting if 1 selects RAM or other devices
+0x0000020000 ~OE		output from RAM or other devices	
+0x0000040000 ~WE		write to RAM or other devices
+0x0000080000 ~ROMoe		disables output of ROM *normally enabled*
+0x0000100000 REGin		loads mov reg with data for memory transfers
+0x0000200000 ~REGout		outputs mov reg with data for memory transfers
+0x0000400000 ADCen		adds with the carry
+0x0000800000 SBCen		subs with the carry
+0x0001000000 Await		pushes forward the clk for 
+0x0002000000 ~JMP		jumps
+0x0004000000 G I/O          outputs or inputs reg G onto databus
+0x0008000000 F I/O          outputs or inputs reg F onto databus
+0x0010000000 CLKinstr       clks the instruction mini decoder
+0x0020000000 FLAG OUTen     enables output of flag reg
+0x0040000000 
+0x0080000000 O/~I           controls output or input of FG and mem
+0x0100000000 TO MEM         Latch that controls from ADR either REG or DATA BUS to ADR BUS
+0x0200000000 DISPLAY FG     displays FG onto the connection between databus and REG FG to the ADR BUS when 0.
+0x0400000000 <JMP           jmps of selected REG is less than A
+0x0800000000 =JMP           jmps of selected REG is equal t0 A
+0x1000000000 >JMP           jmps of selected REG is bigger than A
+
+
+*******************************************************************************************************************************************
+Instructions 8-bit CPU
+
+00 NOP
+01 CPL
+02 JMP #NUMH, #NUML
+03 MOV A,#NUM
+04 JMP [FG]
+05 CALL [FG]
+06 MOV A, MEM[#NUM, #NUM]
+07 MOVF A
+08 SHR A
+09 MOV B, MEM[#NUM, #NUM]
+0A MOVF B
+0B MOV B,#NUM
+0C RET
+10 SHL A
+11 MOV C, MEM[#NUM, #NUM]
+12 MOVF C
+13 MOV C,#NUM
+
+19 MOV D, MEM[#NUM, #NUM]
+1A MOVF D
+1B MOV D,#NUM
+
+21 MOV E, MEM[#NUM, #NUM]
+22 MOVF E
+23 MOV E,#NUM
+
+29 MOV F, MEM[#NUM, #NUM]
+2A MOVF F
+2B MOV F,#NUM
+
+31 MOV G, MEM[#NUM, #NUM]
+32 MOVF G
+33 MOV G,#NUM
+
+****3A MOV M, MEM[#NUM, #NUM]**** maybe
+3B MOV M,#NUM
+
+40 MOV A,A
+41 MOV A,B
+42 MOV A,C
+43 MOV A,D
+44 MOV A,E
+45 MOV A,F
+46 MOV A,G
+47 MOV A,M  * Remember M means memory and uses 2 inputs *
+48 MOV B,A
+49 MOV B,B
+4A MOV B,C
+4B MOV B,D
+4C MOV B,E
+4D MOV B,F
+4E MOV B,G
+4F MOV B,M
+50 MOV C,A
+51 MOV C,B
+52 MOV C,C
+53 MOV C,D
+54 MOV C,E
+55 MOV C,F
+56 MOV C,G
+57 MOV C,M
+58 MOV D,A
+59 MOV D,B
+5A MOV D,C
+5B MOV D,D
+5C MOV D,E
+5D MOV D,F
+5E MOV D,G
+5F MOV D,M
+60 MOV E,A
+61 MOV E,B
+62 MOV E,C
+63 MOV E,D
+64 MOV E,E
+65 MOV E,F
+66 MOV E,G
+67 MOV E,M
+68 MOV E,A
+69 MOV F,B
+6A MOV F,C
+6B MOV F,D
+6C MOV F,E
+6D MOV F,F
+6E MOV F,G
+6F MOV F,M
+70 MOV C,A
+71 MOV G,B
+72 MOV G,C
+73 MOV G,D
+74 MOV G,E
+75 MOV G,F
+76 MOV G,G
+77 MOV G,M
+78 MOV M,A
+79 MOV M,B
+7A MOV M,C
+7B MOV M,D
+7C MOV M,E
+7D MOV M,F
+7E MOV M,G
+7F MOV M,M * this movs from one memory to the same memory(actually all it does is display it on the data bus)* Might change sometime
+80 ADD #
+81 ADD B
+82 ADD C
+83 ADD D
+84 ADD E
+85 ADD F
+86 ADD G
+87 ADD M
+88 ADC #
+89 ADC B
+8A ADC C
+8B ADC D
+8C ADC E
+8D ADC F
+8E ADC G
+8F ADC M
+90 SUB #
+91 SUB B
+92 SUB C
+93 SUB D
+94 SUB E
+95 SUB F
+96 SUB G
+97 SUB M
+98 SBC #
+99 SBC B
+9A SBC C
+9B SBC D
+9C SBC E
+9D SBC F
+9E SBC G
+9F SBC M
+A0 AND #
+A1 AND B
+A2 AND C
+A3 AND D
+A4 AND E
+A5 AND F
+A6 AND G
+A7 AND M
+A8 OR #
+A9 OR B
+AA OR C
+AB OR D
+AC OR E
+AD OR F
+AE OR G
+AF OR M
+B0 CMPE # * if equal jmp to FG*
+B1 CMPE B
+B2 CMPE C
+B3 CMPE D
+B4 CMPE E
+B5 CMPE F
+B6 CMPE G  
+B7 CMPE #MEM, #MEM! *#MEM, #MEM equal to a then jmps to FG*
+B8 XCHG #!
+B9 XCHG B!
+BA XCHG C!
+BB XCHG D!
+BC XCHG E!
+BD XCHG F!
+BE XCHG G!
+BF XCHG M!
+C0            *JMPS if the corresponding flag is 1*
+C1 
+C2  
+C3 
+C4   
+C5 
+C6  
+C7 
+C8 CMPD #, #ADR, #ADR    *if equal jmps to #ADR, #ADR*
+C9 CMPD B, #ADR, #ADR
+CA CMPD C, #ADR, #ADR
+CB CMPD D, #ADR, #ADR
+CC CMPD E, #ADR, #ADR
+CD CMPD F, #ADR, #ADR                                         
+CE CMPD G, #ADR, #ADR
+CE CMPD M, #ADR, #ADR
+D0 
+D1 
+D2 
+D3 
+D4 
+D5 
+D6 
+D7 
+D8  
+D9 
+DA 
+DB 
+DC 
+DD 
+DE 
+DF 
+
+
+EB
+ 
