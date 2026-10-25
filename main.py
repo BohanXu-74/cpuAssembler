@@ -55,6 +55,7 @@ for i in range(len(content)):
 
     line[0] = line[0].upper()
 
+    #MOV command
     if line[0] == "MOV":
         if not line[2].isdigit():
             print("0x", end="")
@@ -63,6 +64,7 @@ for i in range(len(content)):
         else:
             print(hex((var[line[1]] << 3) + 3))
             print(hex(int(line[2])))
+    #ADD Command
     elif line[0] == "ADD":
         if not line[1].isdigit():
             print("0x8", end="")
@@ -70,6 +72,7 @@ for i in range(len(content)):
         else:
             print("0x80")
             print(hex(int(line[1])))
+    #ADC command
     elif line[0] == "ADC":
         if not line[1].isdigit():
             print("0x8", end="")
@@ -77,6 +80,7 @@ for i in range(len(content)):
         else:
             print("0x88")
             print(hex(int(line[1])))
+    #SUB command
     elif line[0] == "SUB":
         if not line[1].isdigit():
             print("0x9", end="")
@@ -84,6 +88,7 @@ for i in range(len(content)):
         else:
             print("0x90")
             print(hex(int(line[1])))
+    #SBC command
     elif line[0] == "SBC":
         if not line[1].isdigit():
             print("0x9", end="")
@@ -91,6 +96,7 @@ for i in range(len(content)):
         else:
             print("0x98")
             print(hex(int(line[1])))
+    #CMPD command
     elif line[0] == "AND":
         if not line[1].isdigit():
             print("0xA", end="")
@@ -98,12 +104,37 @@ for i in range(len(content)):
         else:
             print("0xA0")
             print(hex(int(line[1])))
+    #CMPD command
     elif line[0] == "OR":
         if not line[1].isdigit():
             print("0xA", end="")
             print(var[line[1]]+8)
         else:
             print("0xA0")
+            print(hex(int(line[1])))
+    #CMPD command
+    elif line[0] == "CMPE":
+        if not line[1].isdigit():
+            print("0xB", end="")
+            print(var[line[1]])
+        else:
+            print("0xB0")
+            print(hex(int(line[1])))
+    #CMPD command
+    elif line[0] == "XCHG":
+        if not line[1].isdigit():
+            print("0xB", end="")
+            print(var[line[1]]+8)
+        else:
+            print("0xB8")
+            print(hex(int(line[1])))
+    #CMPD command
+    elif line[0] == "CMPD":
+        if not line[1].isdigit():
+            print("0xC", end="")
+            print(var[line[1]]+8)
+        else:
+            print("0xC8")
             print(hex(int(line[1])))
 
 
