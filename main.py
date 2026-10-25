@@ -57,37 +57,54 @@ for i in range(len(content)):
 
     if line[0] == "MOV":
         if not line[2].isdigit():
+            print("0x", end="")
             print(movRegVars[line[1]], end="")
             print(var[line[2]], end="")
         else:
-            print((var[line[1]] << 3) + 3)
-            print(int(line[2]))
+            print(hex((var[line[1]] << 3) + 3))
+            print(hex(int(line[2])))
     elif line[0] == "ADD":
         if not line[1].isdigit():
-            print("8", end="")
-            print(var[line[1]])
+            print("0x8", end="")
+            print(hex(var[line[1]]))
         else:
-            print("80")
-            print(line[1])
+            print("0x80")
+            print(hex(int(line[1])))
     elif line[0] == "ADC":
         if not line[1].isdigit():
-            print("8", end="")
+            print("0x8", end="")
             print(var[line[1]]+8)
         else:
-            print("88")
-            print(line[1])
+            print("0x88")
+            print(hex(int(line[1])))
     elif line[0] == "SUB":
         if not line[1].isdigit():
-            print("9", end="")
+            print("0x9", end="")
             print(var[line[1]])
         else:
-            print("90")
-            print(line[1])
+            print("0x90")
+            print(hex(int(line[1])))
     elif line[0] == "SBC":
         if not line[1].isdigit():
-            print("9", end="")
+            print("0x9", end="")
             print(var[line[1]]+8)
         else:
-            print("98")
-            print(line[1])
+            print("0x98")
+            print(hex(int(line[1])))
+    elif line[0] == "AND":
+        if not line[1].isdigit():
+            print("0xA", end="")
+            print(var[line[1]])
+        else:
+            print("0xA0")
+            print(hex(int(line[1])))
+    elif line[0] == "OR":
+        if not line[1].isdigit():
+            print("0xA", end="")
+            print(var[line[1]]+8)
+        else:
+            print("0xA0")
+            print(hex(int(line[1])))
 
+
+    
