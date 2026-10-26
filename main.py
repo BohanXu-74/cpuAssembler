@@ -156,8 +156,10 @@ for i in range(len(content)):
         else:
             print("0xC8")
             print(hex(int(line[1])))
+    #MOVF command
     elif line[0] == "MOVF":
         print(hex(var2[line[1]]))
+    #SHR command
     elif line[0] == "SHR":
             print("0x8")
     elif line[0] == "SHL":
@@ -166,6 +168,22 @@ for i in range(len(content)):
         print("0x0")
     elif line[0] == "CPL":
         print("0x1")
+    elif line[0] == "JMP":
+        if len(line) > 1:
+            print("0x32")
+            print(hex(line[1]))
+            print(hex(line[2]))
+        else:
+            print("0x4")
+    elif line[0] == "CALL":
+        print("0x5")
+    elif line[0] == "RET":
+        print("0xC")
+
+
+
+
+        
 
 
 
