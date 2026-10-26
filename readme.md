@@ -1,5 +1,8 @@
 # Cpu assembler 
-Written in python for my 8-Bit CPU project
+Written in python for my 8-Bit CPU project.
+After designing my 8-Bit CPU it was too hard to write machine code for every program so I made this assembler to make it easier to program my CPU.
+
+
 ## Instructions to run
 
 - Download all the files
