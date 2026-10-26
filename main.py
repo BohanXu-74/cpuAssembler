@@ -21,7 +21,7 @@ movRegVars = {
     "E":  0x06,
     "F":  0x06,
     "G":  0x07,
-    "M":  0x07,
+    "M":  0x07
 }
 
 var = {
@@ -32,7 +32,27 @@ var = {
     "E":  0x04,
     "F":  0x05,
     "G":  0x06,
-    "M":  0x07,
+    "M":  0x07
+}
+
+var2 = {
+    "A":  0x07,
+    "B":  0x0A,
+    "C":  0x12,
+    "D":  0x1A,
+    "E":  0x22,
+    "F":  0x2A,
+    "G":  0x32,
+}
+
+movMem = {
+    "A":  0x06,
+    "B":  0x09,
+    "C":  0x11,
+    "D":  0x19,
+    "E":  0x21,
+    "F":  0x29,
+    "G":  0x31,
 }
 
 print("8-Bit CPU assembler")
@@ -96,7 +116,7 @@ for i in range(len(content)):
         else:
             print("0x98")
             print(hex(int(line[1])))
-    #CMPD command
+    #AND command
     elif line[0] == "AND":
         if not line[1].isdigit():
             print("0xA", end="")
@@ -104,7 +124,7 @@ for i in range(len(content)):
         else:
             print("0xA0")
             print(hex(int(line[1])))
-    #CMPD command
+    #OR command
     elif line[0] == "OR":
         if not line[1].isdigit():
             print("0xA", end="")
@@ -112,7 +132,7 @@ for i in range(len(content)):
         else:
             print("0xA0")
             print(hex(int(line[1])))
-    #CMPD command
+    #CMPE command 
     elif line[0] == "CMPE":
         if not line[1].isdigit():
             print("0xB", end="")
@@ -120,7 +140,7 @@ for i in range(len(content)):
         else:
             print("0xB0")
             print(hex(int(line[1])))
-    #CMPD command
+    #XCHG command
     elif line[0] == "XCHG":
         if not line[1].isdigit():
             print("0xB", end="")
@@ -136,6 +156,18 @@ for i in range(len(content)):
         else:
             print("0xC8")
             print(hex(int(line[1])))
+    elif line[0] == "MOVF":
+        print(hex(var2[line[1]]))
+    elif line[0] == "SHR":
+            print("0x8")
+    elif line[0] == "SHL":
+        print("0x10")
+    elif line[0] == "NOP":
+        print("0x0")
+    elif line[0] == "CPL":
+        print("0x1")
+
+
 
 
     
