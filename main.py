@@ -60,9 +60,12 @@ print("Enter file name to assemble (Make sure it is a .txt file and in the same 
 
 filename = input()
 
-file = open("code.txt", "r")
+file = open(filename, "r")
 content = file.readlines()
 file.close()
+
+output = open(filename.replace(".txt", ".asm"), "w")
+
 
 print("Assembling...")
 
@@ -78,107 +81,161 @@ for i in range(len(content)):
     #MOV command
     if line[0] == "MOV":
         if not line[2].isdigit():
-            print("0x", end="")
-            print(movRegVars[line[1]], end="")
-            print(var[line[2]], end="")
+            output.write(str(movRegVars[line[1]]))
+            if line[1] == "B" or line[1] == "D" or line[1] == "F" or line[1] == "M":
+                output.write(format(var[line[2]]+8, "01X"))
+                output.write("\n")
+            else:
+                output.write(str(var[line[2]]))
+                output.write("\n")
         else:
-            print(hex((var[line[1]] << 3) + 3))
-            print(hex(int(line[2])))
+            output.write(format((var[line[1]] << 3) + 3, "02X"))
+            output.write("\n")
+            output.write(format(int(line[2]), "02X"))
+            output.write("\n")
     #ADD Command
     elif line[0] == "ADD":
         if not line[1].isdigit():
-            print("0x8", end="")
-            print(hex(var[line[1]]))
+            output.write("8")
+            output.write(str(var[line[1]]))
+            output.write("\n")
         else:
-            print("0x80")
-            print(hex(int(line[1])))
+            output.write("80")
+            output.write("\n")
+            output.write(format(int(line[1]), "02X"))
+            output.write("\n")
     #ADC command
     elif line[0] == "ADC":
         if not line[1].isdigit():
-            print("0x8", end="")
-            print(var[line[1]]+8)
+            output.write("8")
+            output.write(format(var[line[1]]+8, "01X"))
+            output.write("\n")
         else:
-            print("0x88")
-            print(hex(int(line[1])))
+            output.write("88")
+            output.write("\n")
+            output.write(format(int(line[1]), "02X"))
+            output.write("\n")
     #SUB command
     elif line[0] == "SUB":
         if not line[1].isdigit():
-            print("0x9", end="")
-            print(var[line[1]])
+            output.write("9")
+            output.write(str(var[line[1]]))
+            output.write("\n")
         else:
-            print("0x90")
-            print(hex(int(line[1])))
+            output.write("90")
+            output.write("\n")
+            output.write(format(int(line[1]), "02X"))
+            output.write("\n")
     #SBC command
     elif line[0] == "SBC":
         if not line[1].isdigit():
-            print("0x9", end="")
-            print(var[line[1]]+8)
+            output.write("9")
+            output.write(format(var[line[1]]+8, "01X"))
+            output.write("\n")
         else:
-            print("0x98")
-            print(hex(int(line[1])))
+            output.write("98")
+            output.write("\n")
+            output.write(str(int(line[1])))
+            output.write("\n")
     #AND command
     elif line[0] == "AND":
         if not line[1].isdigit():
-            print("0xA", end="")
-            print(var[line[1]])
+            output.write("A")
+            output.write(str(var[line[1]]))
+            output.write("\n")
         else:
-            print("0xA0")
-            print(hex(int(line[1])))
+            output.write("A0")
+            output.write("\n")
+            output.write(format(int(line[1]), "02X"))
+            output.write("\n")
     #OR command
     elif line[0] == "OR":
         if not line[1].isdigit():
-            print("0xA", end="")
-            print(var[line[1]]+8)
+            output.write("A")
+            output.write(format(var[line[1]]+8, "01X"))
+            output.write("\n")
         else:
-            print("0xA0")
-            print(hex(int(line[1])))
+            output.write("A8")
+            output.write("\n")
+            output.write(format(int(line[1]), "02X"))
+            output.write("\n")
     #CMPE command 
     elif line[0] == "CMPE":
         if not line[1].isdigit():
-            print("0xB", end="")
-            print(var[line[1]])
+            output.write("B")
+            output.write(str(var[line[1]]))
+            output.write("\n")
         else:
-            print("0xB0")
-            print(hex(int(line[1])))
+            output.write("B0")
+            output.write("\n")
+            output.write(format(int(line[1]), "02X"))
+            output.write("\n")
     #XCHG command
     elif line[0] == "XCHG":
         if not line[1].isdigit():
-            print("0xB", end="")
-            print(var[line[1]]+8)
+            output.write("B")
+            output.write(format(var[line[1]]+8, "01X"))
+            output.write("\n")
         else:
-            print("0xB8")
-            print(hex(int(line[1])))
+            output.write("B8")
+            output.write("\n")
+            output.write(format(int(line[1]), "02X"))
+            output.write("\n")
     #CMPD command
     elif line[0] == "CMPD":
         if not line[1].isdigit():
-            print("0xC", end="")
-            print(var[line[1]]+8)
+            output.write("C")
+            output.write(format(var[line[1]]+8, "01X"))
+            output.write("\n")
         else:
-            print("0xC8")
-            print(hex(int(line[1])))
+            output.write("C8")
+            output.write("\n")
+            output.write(format(int(line[1]), "02X"))
+            output.write("\n")
     #MOVF command
     elif line[0] == "MOVF":
-        print(hex(var2[line[1]]))
+        output.write(format(var2[line[1]], "02X"))
+        output.write("\n")
     #SHR command
     elif line[0] == "SHR":
-            print("0x8")
+        output.write("08")
+        output.write("\n")
+    #SHL command
     elif line[0] == "SHL":
-        print("0x10")
+        output.write("10")
+        output.write("\n")
+    #NOP command
     elif line[0] == "NOP":
-        print("0x0")
+        output.write("0")
+        output.write("\n")
+    #CPL command
     elif line[0] == "CPL":
-        print("0x1")
+        output.write("01")
+        output.write("\n")
+    #JMP command
     elif line[0] == "JMP":
         if len(line) > 1:
-            print("0x32")
-            print(hex(line[1]))
-            print(hex(line[2]))
+            output.write("32")
+            output.write("\n")
+            output.write(format(line[1], "02X"))
+            output.write("\n")
+            output.write(format(line[2], "02X"))
+            output.write("\n")
         else:
-            print("0x4")
+            output.write("04")
+            output.write("\n")
+    #CALL command
     elif line[0] == "CALL":
-        print("0x5")
+        output.write("05")
+        output.write("\n")
+    #RET command
     elif line[0] == "RET":
-        print("0xC")
+        output.write("0C")
+        output.write("\n")
+
+print("Assembled!")
+
+output.close()
 
 
 
