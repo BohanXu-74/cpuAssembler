@@ -5,8 +5,14 @@ After designing my 8-Bit CPU it was too hard to write machine code for every pro
 
 ## Instructions to run
 
-- Download all the files
-- All the instructions are in the instr.txt file
-- write your code in the code.txt
-- run python3 main.py and follow the instructions in their
-- After running it, open code.asm to see you compiled code.
+- Go to release V2
+- download all the files
+- Make sure the code file is named code.txt and that it is in the same folder as the exe
+- double click to run the main.exe
+- It should say Assembled!
+- Press enter to continue and the window should automatically close
+- The folder should now also contain main.asm that is your assembled file
+
+## Ideas and things to add in the future
+- Add actual syntax errors so the person using it knows what's wrong with their code
+- Ability to call code.txt whatever they want to make it more personilzed
